@@ -81,6 +81,7 @@ set(MICROPY_SOURCE_PORT
     ${PROJECT_DIR}/mpthreadport.c
     ${PROJECT_DIR}/machine_rtc.c
     ${PROJECT_DIR}/machine_sdcard.c
+    ${PROJECT_DIR}/modframebuffer.c
 )
 
 set(MICROPY_SOURCE_QSTR
@@ -119,6 +120,9 @@ set(IDF_COMPONENTS
     ulp
     vfs
     xtensa
+    driver_bus_i2c
+    driver_display_ssd1306
+    driver_framebuffer
 )
 
 if(IDF_VERSION_MINOR GREATER_EQUAL 1 OR IDF_VERSION_MAJOR GREATER_EQUAL 5)
