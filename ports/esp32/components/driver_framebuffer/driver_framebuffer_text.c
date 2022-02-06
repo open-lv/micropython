@@ -47,7 +47,6 @@ POSSIBILITY OF SUCH DAMAGE.
 
 /* Fonts */
 
-#define FONTS_AMOUNT 14
 
 const char* fontNames[] = {
 	"org18",
@@ -63,8 +62,14 @@ const char* fontNames[] = {
 	"roboto_regular22",       //SHA2017
 	"weather42",              //SHA2017
 	"pixelade13",             //SHA2017
-	"7x5"                     //CAMPZONE2019
+	"7x5",                     //CAMPZONE2019
+	"graphik_bold19",
+	"graphik_bold27",
+	"graphik_bold45"
 };
+
+#define FONTS_AMOUNT 17
+
 const GFXfont* fontPointers[] = {
 	&org_018pt7b,
 	&fairlight8pt7b,
@@ -79,7 +84,11 @@ const GFXfont* fontPointers[] = {
 	&roboto22pt7b,
 	&weather42pt8b,
 	&roboto12pt7b, //Replaced pixelade13 with something that actually looks nice.
-	&ipane7x5
+	&ipane7x5,
+    &Graphik_Bold19pt7b,
+	&Graphik_Bold27pt7b,
+	&Graphik_Bold45pt7b
+
 };
 
 /* Private functions */
