@@ -83,6 +83,13 @@ int vprintf_null(const char *format, va_list ap) {
     return 0;
 }
 
+void fatal_error(const char *message) {
+  printf("A fatal error occurred while initializing the driver for '%s'.\n", message);
+}
+ 
+
+#define INIT_DRIVER(name,message) { extern esp_err_t driver_##name##_init(void); if (driver_##name##_init() != ESP_OK) fatal_error(message); }
+
 void mp_task(void *pvParameter) {
     volatile uint32_t sp = (uint32_t)get_sp();
     #if MICROPY_PY_THREAD
@@ -96,6 +103,11 @@ void mp_task(void *pvParameter) {
     uart_init();
     #endif
     machine_init();
+    INIT_DRIVER(i2c,"I2C BUS");
+    INIT_DRIVER(ssd1306,"SSD1306");
+    INIT_DRIVER(framebuffer,"FRAMEBUFFER");
+
+
 
     // TODO: CONFIG_SPIRAM_SUPPORT is for 3.3 compatibility, remove after move to 4.0.
     #if CONFIG_ESP32_SPIRAM_SUPPORT || CONFIG_SPIRAM_SUPPORT
