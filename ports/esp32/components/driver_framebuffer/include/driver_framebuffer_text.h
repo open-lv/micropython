@@ -20,10 +20,9 @@ extern const GFXfont roboto22pt7b;
 extern const GFXfont weather42pt8b;
 extern const GFXfont ipane7x5;
 
-extern const GFXfont FreeSans12pt7b;
-extern const GFXfont FreeSans16pt7b;
-extern const GFXfont FreeSans20pt7b;
-
+extern const GFXfont Graphik_Bold12pt7b;
+extern const GFXfont Graphik_Bold16pt7b;
+extern const GFXfont Graphik_Bold20pt7b;
 /* Functions */
 
 const GFXfont* driver_framebuffer_findFontByName(const char* fontName);
