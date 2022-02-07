@@ -3,9 +3,10 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include "mpfile.h"
 
 struct lib_file_reader {
-	int fd;
+    mp_file_t* fp;
 	int bufsize;
 	int buflen;
 	int bufpos;

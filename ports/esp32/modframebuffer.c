@@ -12,7 +12,7 @@
 #include <driver_framebuffer.h>
 #include <driver_framebuffer_compositor.h>
 #include <driver_framebuffer_devices.h>
-
+#include "file_reader.h"
 #ifdef CONFIG_DRIVER_FRAMEBUFFER_ENABLE
 
 static mp_obj_t framebuffer_flush(mp_uint_t n_args, const mp_obj_t *args)
@@ -598,15 +598,6 @@ static mp_obj_t framebuffer_draw_png(mp_uint_t n_args, const mp_obj_t *args)
 		lib_mem_destroy(mr);
 	} else {
 		const char* filename = mp_obj_str_get_str(args[paramOffset]);
-        /*
-		char fullname[128] = {'\0'};
-		int res = physicalPathN(filename, fullname, sizeof(fullname));
-		if ((res != 0) || (strlen(fullname) == 0)) {
-			mp_raise_ValueError("File not found");
-			return mp_const_none;
-		}
-		struct lib_file_reader *fr = lib_file_new(fullname, 1024);
-        */
 		struct lib_file_reader *fr = lib_file_new(filename, 1024);
 		if (fr == NULL) {
 			nlr_raise(mp_obj_new_exception_msg_varg(&mp_type_ValueError, "Could not open file '%s'!",filename));

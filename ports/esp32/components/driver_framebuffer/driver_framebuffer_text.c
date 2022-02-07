@@ -63,9 +63,9 @@ const char* fontNames[] = {
 	"weather42",              //SHA2017
 	"pixelade13",             //SHA2017
 	"7x5",                     //CAMPZONE2019
-	"graphik_bold19",
-	"graphik_bold27",
-	"graphik_bold45"
+	"freesans_12",
+	"freesans_16",
+	"freesans_20"
 };
 
 #define FONTS_AMOUNT 17
@@ -85,10 +85,9 @@ const GFXfont* fontPointers[] = {
 	&weather42pt8b,
 	&roboto12pt7b, //Replaced pixelade13 with something that actually looks nice.
 	&ipane7x5,
-    &Graphik_Bold19pt7b,
-	&Graphik_Bold27pt7b,
-	&Graphik_Bold45pt7b
-
+    &FreeSans12pt7b,
+    &FreeSans16pt7b,
+    &FreeSans20pt7b,
 };
 
 /* Private functions */

@@ -18,7 +18,6 @@
 
 //PNG library
 #include "mem_reader.h"
-#include "file_reader.h"
 #include "png_reader.h"
 
 /* Flags */

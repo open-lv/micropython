@@ -20,7 +20,6 @@
 
 //PNG library
 #include "mem_reader.h"
-#include "file_reader.h"
 #include "png_reader.h"
 
 #endif //_DRIVER_FRAMEBUFFER_INTERNAL_H_

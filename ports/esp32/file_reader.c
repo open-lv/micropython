@@ -5,20 +5,24 @@
 #include <fcntl.h>
 
 #include "file_reader.h"
+#include "mpfile.h"
 
 struct lib_file_reader *
 lib_file_new(const char *filename, int bufsize)
 {
-	int fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		return NULL;
+    const char mode[] = "rb";
+    mp_file_t* fp = mp_open(filename, mode);
+    if (fp == NULL) {
+        return NULL;
+    }
 
 	struct lib_file_reader *fr = (struct lib_file_reader *) malloc(sizeof(struct lib_file_reader) + bufsize);
-	if (fr == NULL)
-		return NULL;
+	if (fr == NULL) {
+        return NULL;
+    }
 
 	memset(fr, 0, sizeof(struct lib_file_reader) + bufsize);
-	fr->fd = fd;
+	fr->fp = fp;
 	fr->bufsize = bufsize;
 
 	return fr;
@@ -32,7 +36,7 @@ lib_file_read(struct lib_file_reader *fr, uint8_t *buf, size_t buf_len)
 	{
 		if (fr->buflen == 0)
 		{
-			ssize_t r = read(fr->fd, fr->buf, fr->bufsize);
+			ssize_t r = mp_readinto(fr->fp, fr->buf, fr->bufsize);
 			if (r < 0)
 				return r;
 			if (r == 0)
@@ -59,7 +63,7 @@ lib_file_read(struct lib_file_reader *fr, uint8_t *buf, size_t buf_len)
 void
 lib_file_destroy(struct lib_file_reader *fr)
 {
-	if (fr->fd)
-		close(fr->fd);
+	if (fr->fp)
+		mp_close(fr->fp);
 	free(fr);
 }

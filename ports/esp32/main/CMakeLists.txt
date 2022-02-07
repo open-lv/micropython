@@ -82,6 +82,8 @@ set(MICROPY_SOURCE_PORT
     ${PROJECT_DIR}/machine_rtc.c
     ${PROJECT_DIR}/machine_sdcard.c
     ${PROJECT_DIR}/modframebuffer.c
+    ${PROJECT_DIR}/mpfile.c
+    ${PROJECT_DIR}/file_reader.c
 )
 
 set(MICROPY_SOURCE_QSTR
