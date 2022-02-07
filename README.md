@@ -1,5 +1,26 @@
 [![CI badge](https://github.com/micropython/micropython/workflows/unix%20port/badge.svg)](https://github.com/micropython/micropython/actions?query=branch%3Amaster+event%3Apush) [![codecov](https://codecov.io/gh/micropython/micropython/branch/master/graph/badge.svg?token=I92PfD05sD)](https://codecov.io/gh/micropython/micropython)
 
+Fork-specific information
+============================
+
+This fork adds the display module (modframebuffer.c) and driver for ssd1306 from [badge.team](https://github.com/badgeteam/ESP32-platform-firmware/tree/disobey2020_release).
+
+Building:
+
+First, download and install commit 142bb32c50fa9875b8b69fa539a2d59559460d72 of [esp-idf](https://github.com/espressif/esp-idf)
+
+    source ~/esp-idf/export.sh
+    make -C mpy-cross
+    cd ports/esp32
+    make submodules
+    make BOARD=AIRGUARD
+
+Flashing the resulting firmware:
+    
+    esptool.py -p /dev/ttyUSB0 -b 460800 --before default_reset --after hard_reset --chip esp32  write_flash --flash_size detect --flash_freq 40m 0x1000 build-AIRGUARD/firmware.bin
+
+
+
 The MicroPython project
 =======================
 <p align="center">
