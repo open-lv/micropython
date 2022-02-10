@@ -2,8 +2,14 @@ name: esp32 port
 
 on:
   push:
-    tags:
-      - "*"
+    paths:
+      - '.github/workflows/*.yml'
+      - 'tools/**'
+      - 'py/**'
+      - 'extmod/**'
+      - 'lib/**'
+      - 'drivers/**'
+      - 'ports/esp32/**'
 
 jobs:
   build_airguard:
@@ -24,6 +30,7 @@ jobs:
 
     - name: Create Release
       id: create_release
+      if: startsWith(github.ref, 'refs/tags/')
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
@@ -35,6 +42,7 @@ jobs:
 
     - name: Upload Release Asset
       id: upload-release-asset
+      if: startsWith(github.ref, 'refs/tags/')
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
