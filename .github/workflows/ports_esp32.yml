@@ -25,8 +25,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Firmware binaries
-        path: |
-          ports/esp32/build-AIRGUARD/*.bin
+        path: ports/esp32/build-AIRGUARD/micropython.bin
 
     - name: Create Release
       id: create_release
