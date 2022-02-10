@@ -21,3 +21,10 @@ jobs:
       run: source tools/ci.sh && ci_esp32_airguard_setup
     - name: Build
       run: source tools/ci.sh && ci_esp32_airguard_build
+
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Firmware binaries
+        path: |
+          ports/esp32/build-AIRGUARD/*.bin
