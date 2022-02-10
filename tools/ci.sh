@@ -111,6 +111,11 @@ function ci_esp32_idf44_setup {
     ci_esp32_setup_helper 142bb32c50fa9875b8b69fa539a2d59559460d72
 }
 
+function ci_esp32_airguard_setup {
+    # This commit is just before v5.0-dev
+    ci_esp32_setup_helper 142bb32c50fa9875b8b69fa539a2d59559460d72
+}
+
 function ci_esp32_build {
     source esp-idf/export.sh
     make ${MAKEOPTS} -C mpy-cross
@@ -125,6 +130,13 @@ function ci_esp32_build {
     if [ -d $IDF_PATH/components/esp32s3 ]; then
         make ${MAKEOPTS} -C ports/esp32 BOARD=GENERIC_S3
     fi
+}
+
+function ci_esp32_airguard_build {
+    source esp-idf/export.sh
+    make ${MAKEOPTS} -C mpy-cross
+    make ${MAKEOPTS} -C ports/esp32 submodules
+    make ${MAKEOPTS} -C ports/esp32 BOARD=AIRGUARD
 }
 
 ########################################################################################
