@@ -7,13 +7,13 @@ This fork adds the display module (modframebuffer.c) and driver for ssd1306 from
 
 Building:
 
-First, download and install commit 142bb32c50fa9875b8b69fa539a2d59559460d72 of [esp-idf](https://github.com/espressif/esp-idf)
+First, download and install commit v4.2.2 of [esp-idf](https://github.com/espressif/esp-idf) and clone micropython-lib next to project root `git clone https://github.com/micropython/micropython-lib.git ../micropython-lib`
 
     source ~/esp-idf/export.sh
     make -C mpy-cross
     cd ports/esp32
     make submodules
-    make BOARD=AIRGUARD
+    make BOARD=AIRGUARD FROZEN_MANIFEST=$(pwd)/ports/esp32/boards/manifest_release.py
 
 Flashing the resulting firmware:
     
