@@ -13,7 +13,7 @@ First, download and install commit v4.2.2 of [esp-idf](https://github.com/espres
     make -C mpy-cross
     cd ports/esp32
     make submodules
-    make BOARD=AIRGUARD FROZEN_MANIFEST=$(pwd)/ports/esp32/boards/manifest_release.py
+    make BOARD=AIRGUARD
 
 Flashing the resulting firmware:
     
