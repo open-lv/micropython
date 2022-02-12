@@ -3,10 +3,13 @@
 
 #include <stdint.h>
 #include <stddef.h>
-#include "mpfile.h"
+#include "lib/littlefs/lfs2.h"
 
 struct lib_file_reader {
-    mp_file_t* fp;
+    lfs2_t*     lfs;
+    lfs2_file_t lfs_file;
+    struct lfs2_file_config fcfg;
+    uint8_t* lfscache;
 	int bufsize;
 	int buflen;
 	int bufpos;

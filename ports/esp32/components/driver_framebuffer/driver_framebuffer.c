@@ -492,7 +492,7 @@ esp_err_t driver_framebuffer_png(Window* window, int16_t x, int16_t y, lib_reade
 	lib_png_destroy(pr);
 
 	if (res < 0) {
-		printf("Failed to load image.\n");
+		printf("Failed to load image (ret=%d).\n", res);
 		return ESP_FAIL;
 	}
 	
