@@ -142,7 +142,7 @@ void mp_task(void *pvParameter) {
     }
     #else
     // Allocate the uPy heap using malloc and get the largest available region
-    size_t mp_task_heap_size = heap_caps_get_largest_free_block(MALLOC_CAP_8BIT);
+    size_t mp_task_heap_size = heap_caps_get_largest_free_block(MALLOC_CAP_8BIT) - 36*1024;
     void *mp_task_heap = malloc(mp_task_heap_size);
     #endif
 
