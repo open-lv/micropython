@@ -142,7 +142,7 @@ esp_err_t driver_ssd1306_init(void)
 	if (res != ESP_OK) return res;
 	i2c_command(0x81); // SSD1306_SETCONTRAST
 	if (res != ESP_OK) return res;
-	i2c_command(0xcf);
+	i2c_command(0x33);
 	if (res != ESP_OK) return res;
 	i2c_command(0xd9); // SSD1306_SETPRECHARGE
 	if (res != ESP_OK) return res;
