@@ -157,8 +157,9 @@ class request:
 class response:
     """HTTP Response class"""
 
-    def __init__(self, _writer):
+    def __init__(self, _writer, buffer_size=128):
         self.writer = _writer
+        self.buffer_size = buffer_size
         self.send = _writer.awrite
         self.code = 200
         self.version = '1.0'
@@ -292,7 +293,7 @@ class response:
             with open(filename) as f:
                 await self._send_headers()
                 gc.collect()
-                buf = bytearray(128)
+                buf = bytearray(self.buffer_size)
                 while True:
                     size = f.readinto(buf)
                     if size == 0:
@@ -439,7 +440,7 @@ class webserver:
 
         try:
             req = request(reader)
-            resp = response(writer)
+            resp = response(writer, buffer_size=self.buffer_size)
             # Read HTTP Request with timeout
             await asyncio.wait_for(self._handle_request(req, resp),
                                    self.request_timeout)
@@ -671,7 +672,7 @@ class webserver:
         finally:
             sock.close()
 
-    def run(self, host="127.0.0.1", port=8081, loop_forever=True):
+    def run(self, host="127.0.0.1", port=8081, loop_forever=True, buffer_size=128):
         """Run Web Server. By default it runs forever.
 
         Keyword arguments:
@@ -679,6 +680,7 @@ class webserver:
             port - port to listen on. By default - 8081
             loop_forever - run loo.loop_forever(), otherwise caller must run it by itself.
         """
+        self.buffer_size = buffer_size
         self._server_coro = self._tcp_server(host, port, self.backlog)
         self.loop.create_task(self._server_coro)
         if loop_forever:
