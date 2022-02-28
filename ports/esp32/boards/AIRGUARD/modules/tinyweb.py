@@ -369,7 +369,7 @@ async def restful_resource_handler(req, resp, param=None):
 
 class webserver:
 
-    def __init__(self, request_timeout=3, max_concurrency=3, backlog=16, debug=False):
+    def __init__(self, request_timeout=3, max_concurrency=3, backlog=16, buffer_size=128, debug=False):
         """Tiny Web Server class.
         Keyword arguments:
             request_timeout - Time for client to send complete request
@@ -388,6 +388,7 @@ class webserver:
         self.request_timeout = request_timeout
         self.max_concurrency = max_concurrency
         self.backlog = backlog
+        self.buffer_size = buffer_size
         self.debug = debug
         self.explicit_url_map = {}
         self.catch_all_handler = None
@@ -672,7 +673,7 @@ class webserver:
         finally:
             sock.close()
 
-    def run(self, host="127.0.0.1", port=8081, loop_forever=True, buffer_size=128):
+    def run(self, host="127.0.0.1", port=8081, loop_forever=True):
         """Run Web Server. By default it runs forever.
 
         Keyword arguments:
@@ -680,7 +681,6 @@ class webserver:
             port - port to listen on. By default - 8081
             loop_forever - run loo.loop_forever(), otherwise caller must run it by itself.
         """
-        self.buffer_size = buffer_size
         self._server_coro = self._tcp_server(host, port, self.backlog)
         self.loop.create_task(self._server_coro)
         if loop_forever:
