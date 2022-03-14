@@ -165,10 +165,15 @@ lib_deflate_init(struct lib_deflate_reader *dr, lib_reader_read_t read, void *re
 	dr->read_p = read_p;
 }
 
+//statically allocated deflate reader eases pressure on heap fragmentation
+//the size of this struct is quite large, which required large reserved dynamic
+//memory
+static struct lib_deflate_reader _reader;
+
 struct lib_deflate_reader *
 lib_deflate_new(lib_reader_read_t read, void *read_p)
 {
-	struct lib_deflate_reader *dr = (struct lib_deflate_reader *) malloc(sizeof(struct lib_deflate_reader));
+	struct lib_deflate_reader *dr = &_reader;
 	if (unlikely(dr == NULL))
 		return NULL;
 
@@ -526,5 +531,5 @@ lib_deflate_read(struct lib_deflate_reader *dr, uint8_t *buf, size_t buf_len)
 void
 lib_deflate_destroy(struct lib_deflate_reader *dr)
 {
-	free(dr);
+    //nothing to do for statically allocated deflate reader
 }
