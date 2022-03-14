@@ -142,11 +142,15 @@ void mp_task(void *pvParameter) {
     }
     #else
     // Allocate the uPy heap using malloc and get the largest available region
-    size_t mp_task_heap_size = heap_caps_get_largest_free_block(MALLOC_CAP_8BIT) - 36*1024;
+    size_t mp_task_heap_size = heap_caps_get_largest_free_block(MALLOC_CAP_8BIT);
     void *mp_task_heap = malloc(mp_task_heap_size);
     #endif
 
+    multi_heap_info_t info;
 soft_reset:
+    heap_caps_get_info(&info, MALLOC_CAP_8BIT);
+    printf("C heap: total=%d, free=%d, allocd=%d, mpy heap=%d bytes\n", info.total_free_bytes + info.total_allocated_bytes,
+           info.total_free_bytes, info.total_allocated_bytes, mp_task_heap_size);
     // initialise the stack pointer for the main thread
     mp_stack_set_top((void *)sp);
     mp_stack_set_limit(MP_TASK_STACK_SIZE - MP_TASK_STACK_LIMIT_MARGIN);
